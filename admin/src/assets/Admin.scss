@@ -1,0 +1,27 @@
+.team-datatable {
+  .team-datatable-name {
+    position: relative;
+    .team-datatable-name-text {
+      display: inline;
+      position: absolute;
+      left: 60px;
+      top: 0px;
+      p {
+        margin: 0;
+      }
+      .team-datatable-name-email {
+        margin-top: 10px;
+        color: gray;
+      }
+    }
+  }
+  .team-datatable-icon {
+    div {
+      margin-top: 5px;
+      p {
+        display: inline;
+        margin-left: 5px;
+      }
+    }
+  }
+}
