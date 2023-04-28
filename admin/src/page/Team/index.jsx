@@ -1,8 +1,9 @@
-import "../../assets/Admin.scss";
+import "../../assets/Team.scss";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { Avatar } from "primereact/avatar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Menubar } from "primereact/menubar";
 // import { faBasketball } from '@fortawesome/free-solid-svg-icons';
 import {
   faFacebook,
@@ -96,6 +97,62 @@ function Admin() {
         youtube: "N/A",
       },
     },
+    {
+      id: 7,
+      name: {
+        fullName: "JORGE E.MARR",
+        img: "http://demo.rommar.in.ua/novanoid/novanoid-1/img/member-6.jpg",
+        email: "jorge@gmail.com",
+      },
+      title: "Support",
+      socialMedia: {
+        facebook: "facebook.com",
+        twitter: "N/A",
+        youtube: "N/A",
+      },
+    },
+    {
+      id: 8,
+      name: {
+        fullName: "JORGE E.MARR",
+        img: "http://demo.rommar.in.ua/novanoid/novanoid-1/img/member-6.jpg",
+        email: "jorge@gmail.com",
+      },
+      title: "Support",
+      socialMedia: {
+        facebook: "facebook.com",
+        twitter: "N/A",
+        youtube: "N/A",
+      },
+    },
+    {
+      id: 9,
+      name: {
+        fullName: "JORGE E.MARR",
+        img: "http://demo.rommar.in.ua/novanoid/novanoid-1/img/member-6.jpg",
+        email: "jorge@gmail.com",
+      },
+      title: "Support",
+      socialMedia: {
+        facebook: "facebook.com",
+        twitter: "N/A",
+        youtube: "N/A",
+      },
+    },
+    {
+      id: 10,
+      name: {
+        fullName: "JORGE E.MARR",
+        img: "http://demo.rommar.in.ua/novanoid/novanoid-1/img/member-6.jpg",
+        email: "jorge@gmail.com",
+      },
+      title: "Support",
+      socialMedia: {
+        facebook: "facebook.com",
+        twitter: "N/A",
+        youtube: "N/A",
+      },
+    },
   ];
   const nameBody = (rowData) => {
     const name = rowData.name;
@@ -139,16 +196,27 @@ function Admin() {
       </div>
     );
   };
+  const header = (
+    <div className="flex flex-wrap align-items-center justify-content-between gap-2">
+      <span className="text-xl text-900 font-bold">Team Datatable</span>
+    </div>
+  );
   return (
     <DataTable
+      header={header}
       value={teamList}
       paginator
       rows={3}
-      rowsPerPageOptions={[3, 4, 5]}
+      rowsPerPageOptions={[3, 5, 10]}
       className="team-datatable"
     >
-      <Column field="id" header="ID" />
-      <Column field="name" body={nameBody} header="Name" />
+      <Column
+        field="id"
+        header="ID"
+        className="id"
+        // style={{ width: "100px" }}
+      />
+      <Column field="name" body={nameBody} header="Name"         className="name" />
       <Column field="title" header="Title" />
       <Column field="socialMedia" body={mediaBody} header="Social Media" />
     </DataTable>

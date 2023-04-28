@@ -1,4 +1,16 @@
 .team-datatable {
+  width: 91.74%;
+  // position: absolute;
+  // left: 250px;
+  box-shadow: -8px 3px 25px 1px rgb(210, 209, 209);
+  margin: 20px auto;
+  .id {
+    width: 1px;
+  }
+  .name {
+    // width: 10px;
+    overflow: hidden;
+  }
   .team-datatable-name {
     position: relative;
     .team-datatable-name-text {
@@ -12,6 +24,7 @@
       .team-datatable-name-email {
         margin-top: 10px;
         color: gray;
+        // overflow: hidden;
       }
     }
   }
