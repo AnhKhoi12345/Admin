@@ -7,7 +7,9 @@ import { useRef, useState } from "react";
 import { Avatar } from "primereact/avatar";
 import { Sidebar } from "primereact/sidebar";
 import { PanelMenu } from "primereact/panelmenu";
+import { useNavigate } from "react-router-dom";
 function Header() {
+  const navigate = useNavigate();
   const items = [
     {
       label: "Datatables",
@@ -15,6 +17,9 @@ function Header() {
       items: [
         {
           label: "Team",
+          command: () => {
+            navigate("/");
+          },
           // icon: "pi pi-fw pi-plus",
           // items: [
           //   {
@@ -29,6 +34,9 @@ function Header() {
         },
         {
           label: "User",
+          command: () => {
+            navigate("/user");
+          },
           // icon: "pi pi-fw pi-trash",
         },
         // {
@@ -132,7 +140,7 @@ function Header() {
     let scrollTop = window.pageYOffset;
     if (scrollTop >= 50) {
       navbar.current.style =
-        "  background-color: white; box-shadow: -8px 3px 25px 1px rgb(210, 209, 209);";
+        "  background-color: black; box-shadow: -8px 3px 25px 1px rgb(210, 209, 209);";
     } else {
       navbar.current.style = "";
     }

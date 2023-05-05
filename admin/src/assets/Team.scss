@@ -5,12 +5,19 @@
   box-shadow: -8px 3px 25px 1px rgb(210, 209, 209);
   margin: 20px auto;
   .id {
-    width: 1px;
+    width: 1px !important;
   }
   .name {
-    // width: 10px;
+    width: 38% !important;
     overflow: hidden;
   }
+  .title {
+    width: 10% !important;
+    // overflow: hidden;
+  }
+  // .p-sortable-column {
+  //   width: 20%;
+  // }
   .team-datatable-name {
     position: relative;
     .team-datatable-name-text {
@@ -35,6 +42,15 @@
         display: inline;
         margin-left: 5px;
       }
+    }
+  }
+  .team-datatable-action {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    row-gap: 10px;
+    Button {
+      width: 40%;
     }
   }
 }
