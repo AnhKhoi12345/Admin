@@ -12,6 +12,12 @@ export const teamList = [
       twitter: "twitter.com",
       youtube: "youtube.com",
     },
+    bgImage: "http://demo.rommar.in.ua/novanoid/novanoid-1/img/header-1.jpg",
+    description:
+      "Nulla fringilla urna ac urna volutpat, quis congue massa dignissim. Suspendisse quis orci id dolor vehicula porta quis in dolor. Phasellus volutpat metus.",
+    study: "VGU",
+    work: "CMC",
+    job: "Manage all aspects",
   },
   {
     id: 2,
@@ -26,6 +32,12 @@ export const teamList = [
       twitter: "twitter.com",
       youtube: "N/A",
     },
+    bgImage: "http://demo.rommar.in.ua/novanoid/novanoid-1/img/header-1.jpg",
+    description:
+      "Nulla fringilla urna ac urna volutpat, quis congue massa dignissim. Suspendisse quis orci id dolor vehicula porta quis in dolor. Phasellus volutpat metus.",
+    study: "VGU",
+    work: "CMC",
+    job: "Manage task and project",
   },
   {
     id: 3,
@@ -40,6 +52,12 @@ export const teamList = [
       twitter: "twitter.com",
       youtube: "youtube.com",
     },
+    bgImage: "http://demo.rommar.in.ua/novanoid/novanoid-1/img/header-1.jpg",
+    description:
+      "Nulla fringilla urna ac urna volutpat, quis congue massa dignissim. Suspendisse quis orci id dolor vehicula porta quis in dolor. Phasellus volutpat metus.",
+    study: "VGU",
+    work: "CMC",
+    job: "Program software",
   },
   {
     id: 4,
@@ -54,6 +72,12 @@ export const teamList = [
       twitter: "N/A",
       youtube: "N/A",
     },
+    bgImage: "http://demo.rommar.in.ua/novanoid/novanoid-1/img/header-1.jpg",
+    description:
+      "Nulla fringilla urna ac urna volutpat, quis congue massa dignissim. Suspendisse quis orci id dolor vehicula porta quis in dolor. Phasellus volutpat metus.",
+    study: "VGU",
+    work: "CMC",
+    job: "Develop software",
   },
   {
     id: 5,
@@ -68,6 +92,12 @@ export const teamList = [
       twitter: "twitter.com",
       youtube: "N/A",
     },
+    bgImage: "http://demo.rommar.in.ua/novanoid/novanoid-1/img/header-1.jpg",
+    description:
+      "Nulla fringilla urna ac urna volutpat, quis congue massa dignissim. Suspendisse quis orci id dolor vehicula porta quis in dolor. Phasellus volutpat metus.",
+    study: "VGU",
+    work: "CMC",
+    job: "Maintain database, restore data and troubleshhot",
   },
   {
     id: 6,
@@ -82,6 +112,12 @@ export const teamList = [
       twitter: "N/A",
       youtube: "N/A",
     },
+    bgImage: "http://demo.rommar.in.ua/novanoid/novanoid-1/img/header-1.jpg",
+    description:
+      "Nulla fringilla urna ac urna volutpat, quis congue massa dignissim. Suspendisse quis orci id dolor vehicula porta quis in dolor. Phasellus volutpat metus.",
+    study: "VGU",
+    work: "CMC",
+    job: "Support technologies",
   },
   {
     id: 7,
@@ -96,6 +132,12 @@ export const teamList = [
       twitter: "N/A",
       youtube: "N/A",
     },
+    bgImage: "http://demo.rommar.in.ua/novanoid/novanoid-1/img/header-1.jpg",
+    description:
+      "Nulla fringilla urna ac urna volutpat, quis congue massa dignissim. Suspendisse quis orci id dolor vehicula porta quis in dolor. Phasellus volutpat metus.",
+    study: "VGU",
+    work: "CMC",
+    job: "Support technologies",
   },
   {
     id: 8,
@@ -110,6 +152,12 @@ export const teamList = [
       twitter: "N/A",
       youtube: "N/A",
     },
+    bgImage: "http://demo.rommar.in.ua/novanoid/novanoid-1/img/header-1.jpg",
+    description:
+      "Nulla fringilla urna ac urna volutpat, quis congue massa dignissim. Suspendisse quis orci id dolor vehicula porta quis in dolor. Phasellus volutpat metus.",
+    study: "VGU",
+    work: "CMC",
+    job: "Support technologies",
   },
   {
     id: 9,
@@ -124,6 +172,12 @@ export const teamList = [
       twitter: "N/A",
       youtube: "N/A",
     },
+    bgImage: "http://demo.rommar.in.ua/novanoid/novanoid-1/img/header-1.jpg",
+    description:
+      "Nulla fringilla urna ac urna volutpat, quis congue massa dignissim. Suspendisse quis orci id dolor vehicula porta quis in dolor. Phasellus volutpat metus.",
+    study: "VGU",
+    work: "CMC",
+    job: "Support technologies",
   },
   {
     id: 10,
@@ -138,5 +192,11 @@ export const teamList = [
       twitter: "N/A",
       youtube: "N/A",
     },
+    bgImage: "http://demo.rommar.in.ua/novanoid/novanoid-1/img/header-1.jpg",
+    description:
+      "Nulla fringilla urna ac urna volutpat, quis congue massa dignissim. Suspendisse quis orci id dolor vehicula porta quis in dolor. Phasellus volutpat metus.",
+    study: "VGU",
+    work: "CMC",
+    job: "Support technologies",
   },
 ];

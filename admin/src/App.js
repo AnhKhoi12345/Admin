@@ -15,7 +15,7 @@ function App() {
           <Route path="/" element={<Admin></Admin>}></Route>
           <Route
             path="/team/:id"
-            component={teamList}
+            // component={teamList}
             element={<TeamProfile />}
           />
         </Route>

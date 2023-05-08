@@ -1,0 +1,82 @@
+.team-profile {
+  padding-top: 20px;
+  padding-left: 30px;
+  padding-right: 30px;
+  height: 712px;
+  .profile-header {
+    width: 100%;
+    height: 35%;
+    border: 1px solid white;
+    border-radius: 5px;
+    position: relative;
+    .profile-header-background {
+      height: 65%;
+      border-bottom: 1px solid white;
+      background: no-repeat;
+      position: relative;
+      .profile-header-background-text {
+        position: absolute;
+        bottom: 20px;
+        left: 28%;
+        .name {
+          font-size: 22px;
+          font-family: "Roboto", sans-serif;
+        }
+        .title {
+          font-family: "Roboto", sans-serif;
+          font-size: 13px;
+        }
+      }
+    }
+    .profile-header-button {
+      position: absolute;
+      left: 28%;
+      top: 73%;
+      .follow {
+        margin-right: 30px;
+      }
+    }
+    .profile-header-picture {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      .p-image {
+        // scale: 0.4;
+        // width: 100px;
+
+        // overflow: hidden;
+        img {
+        }
+      }
+    }
+  }
+  .about-container {
+    margin-top: 20px;
+    border: 1px solid white;
+    border-radius: 5px;
+    padding: 22px;
+    h3 {
+      margin-bottom: 10px;
+    }
+  }
+  .info-container {
+    margin-top: 20px;
+    border: 1px solid white;
+    border-radius: 5px;
+    padding: 22px;
+    h3 {
+      margin-bottom: 10px;
+    }
+    .study {
+      .study-icon {
+        margin-right: 15px;
+      }
+      margin-bottom: 10px;
+    }
+    .work {
+      .work-icon {
+        margin-right: 10px;
+      }
+    }
+  }
+}
