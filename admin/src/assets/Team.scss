@@ -13,11 +13,8 @@
   }
   .title {
     width: 10% !important;
-    // overflow: hidden;
   }
-  // .p-sortable-column {
-  //   width: 20%;
-  // }
+
   .team-datatable-name {
     position: relative;
     .team-datatable-name-text {
@@ -52,5 +49,13 @@
     Button {
       width: 40%;
     }
+  }
+}
+@media only screen and (min-width: 1200px) {
+  .team-datatable {
+    // display: inline;
+    width: 75%;
+    margin-top: 80px;
+    margin-left: 300px;
   }
 }

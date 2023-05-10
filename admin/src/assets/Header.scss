@@ -11,8 +11,8 @@
   top: 0;
   // background-color: rgba(255, 255, 255, 0);
   // background-color: red;
-  right: 0;
-  left: 0;
+  // right: 10px;
+  // left: 0;
   padding-top: 20px;
   padding-left: 30px;
   padding-right: 30px;
@@ -79,4 +79,53 @@
 .p-menuitem-text {
   background-color: var(--darker-blueish-gray) !important;
   color: white !important;
+  // box-shadow: none !important;
 }
+.sidebar-1200 {
+  position: fixed;
+  display: none;
+  height: 721px;
+  width: 250px;
+  // border: 1px solid white;
+  background-color: var(--darker-blueish-gray);
+  .logo-1200 {
+    // border: white solid 1px;
+    margin-bottom: 20px;
+    margin-left: 20px;
+    margin-top: 20px;
+    // width: 100px;
+    a {
+      img {
+        width: 100px;
+      }
+    }
+  }
+  .close-button {
+    left: 70px;
+    position: relative;
+    top: -5px;
+  }
+}
+.p-inputswitch {
+  transform: scale(0.7);
+}
+@media only screen and (min-width: 1200px) {
+  .navbar {
+    width: calc(100% - 250px);
+    right: 0px;
+    .navbar-left {
+      .menu-icon {
+        display: none;
+      }
+    }
+  }
+  .sidebar-1200 {
+    display: inline-block;
+  }
+}
+// @media only screen and (min-width: 1250px) {
+//   .navbar {
+//     // width: 80%;
+//     right: 0px; // right: 50px !important;
+//   }
+// }

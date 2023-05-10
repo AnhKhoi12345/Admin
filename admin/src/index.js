@@ -7,6 +7,7 @@ import "primereact/resources/primereact.min.css";
 import "primereact/resources/themes/md-dark-indigo/theme.css";
 import "primeflex/primeflex.css";
 import "./assets/Colors.scss";
+import "primeicons/primeicons.css";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <BrowserRouter>

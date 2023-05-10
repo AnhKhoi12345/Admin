@@ -2,25 +2,33 @@ import "../../assets/Header.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import usaIcon from "../../images/usa-icon.png";
 import user from "../../images/user.jpg";
-import { faBars, faSearch, faBell } from "@fortawesome/free-solid-svg-icons";
+import {
+  faBars,
+  faSearch,
+  faBell,
+  faTable,
+} from "@fortawesome/free-solid-svg-icons";
 import { useRef, useState } from "react";
+import { InputSwitch } from "primereact/inputswitch";
 import { Avatar } from "primereact/avatar";
 import { Sidebar } from "primereact/sidebar";
 import { PanelMenu } from "primereact/panelmenu";
 import { useNavigate } from "react-router-dom";
+import { Button } from "primereact/button";
 function Header() {
   const navigate = useNavigate();
+  const [checked, setChecked] = useState(true);
   const items = [
     {
       label: "Datatables",
-      // icon: "pi pi-fw pi-file",
+      icon: "pi pi-fw pi-table",
       items: [
         {
           label: "Team",
           command: () => {
             navigate("/");
           },
-          // icon: "pi pi-fw pi-plus",
+          icon: "pi pi-fw pi-star",
           // items: [
           //   {
           //     label: "Bookmark",
@@ -37,7 +45,7 @@ function Header() {
           command: () => {
             navigate("/user");
           },
-          // icon: "pi pi-fw pi-trash",
+          icon: "pi pi-fw pi-user",
         },
         // {
         //   label: "Export",
@@ -162,13 +170,13 @@ function Header() {
         <div className="navbar-left ">
           <FontAwesomeIcon
             icon={faBars}
-            className="Menu-icon nav-item"
+            className="menu-icon nav-item"
             size="lg"
             onClick={() => setVisible(true)}
           />
           <FontAwesomeIcon
             icon={faSearch}
-            className="Menu-icon nav-item"
+            className="search-icon nav-item"
             size="lg"
           />
         </div>
@@ -201,7 +209,26 @@ function Header() {
         </div>
         {/* <Menubar model={items} className="navbar-right" /> */}
       </div>
-      <div className="card flex justify-content-center">
+      <div className="sidebar-1200">
+        <div className="logo-1200">
+          <a href={hashtag}>
+            <img
+              src="http://demo.rommar.in.ua/novanoid/novanoid-1/img/logo-light.png"
+              alt="img"
+            ></img>
+          </a>
+          <InputSwitch
+            // style={{ }}
+            checked={checked}
+            className="close-button"
+            onChange={(e) => setChecked(e.value)}
+          />
+        </div>
+        <div className="card flex justify-content-center">
+          <PanelMenu model={items} className="w-full md:w-25rem" />
+        </div>
+      </div>
+      <div className="card flex justify-content-center sidebar-container">
         <Sidebar
           visible={visible}
           onHide={() => setVisible(false)}

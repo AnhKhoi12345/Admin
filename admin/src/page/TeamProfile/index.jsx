@@ -7,7 +7,17 @@ import { Button } from "primereact/button";
 import { Avatar } from "primereact/avatar";
 import { Image } from "primereact/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBriefcase, faFileLines } from "@fortawesome/free-solid-svg-icons";
+import {
+  faBriefcase,
+  faEnvelope,
+  faFileLines,
+  faPhone,
+} from "@fortawesome/free-solid-svg-icons";
+import {
+  faFacebook,
+  faTwitter,
+  faYoutube,
+} from "@fortawesome/free-brands-svg-icons";
 function TeamProfile() {
   const bg = useRef(null);
   const param = window.location.href.split("/").reverse()[0];
@@ -18,7 +28,8 @@ function TeamProfile() {
     }
   }
   useEffect(() => {
-    bg.current.style.background = `url(${teamMember.bgImage}) no-repeat top `;
+    bg.current.style.background = `url(${teamMember.bgImage}) no-repeat top`;
+    bg.current.style.backgroundSize = "cover";
   }, []);
   return (
     <div className="team-profile">
@@ -29,9 +40,14 @@ function TeamProfile() {
             <p className="title">{teamMember.title}</p>
           </div>
         </div>
-        <div className="profile-header-button">
-          <Button label="Follow" className="follow"></Button>
-          <Button label="Edit" className="edit hover:bg-bluegray-400"></Button>
+        <div className="profile-header-button-container">
+          <div className="profile-header-button">
+            <Button label="Follow" className="follow"></Button>
+            <Button
+              label="Edit"
+              className="edit hover:bg-bluegray-400"
+            ></Button>
+          </div>
         </div>
         <div className="profile-header-picture card flex ">
           <Image
@@ -65,6 +81,32 @@ function TeamProfile() {
             size="lg "
           />
           {teamMember.job} at {teamMember.work}
+        </p>
+      </div>
+      <div className="contact-container">
+        <h3>Contacts</h3>
+        <p className="mail contact">
+          <FontAwesomeIcon icon={faEnvelope} className="facebook-i" size="lg" />
+          <p>{teamMember.name.email}</p>
+        </p>
+        <p className="phone-number contact">
+          <FontAwesomeIcon icon={faPhone} className="facebook-i" size="lg" />
+          <p>{teamMember.phoneNumber}</p>
+        </p>
+      </div>
+      <div className="social-media-container">
+        <h3>Social Medias</h3>
+        <p className="facebook platform">
+          <FontAwesomeIcon icon={faFacebook} className="facebook-i" size="lg" />
+          <p>{teamMember.socialMedia.facebook}</p>
+        </p>
+        <p className="twitter platform">
+          <FontAwesomeIcon icon={faTwitter} className="facebook-i" size="lg" />
+          <p>{teamMember.socialMedia.twitter}</p>
+        </p>
+        <p className="youtube platform">
+          <FontAwesomeIcon icon={faYoutube} className="facebook-i" size="lg" />
+          <p>{teamMember.socialMedia.youtube}</p>
         </p>
       </div>
     </div>

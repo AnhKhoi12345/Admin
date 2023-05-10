@@ -18,6 +18,7 @@ export const teamList = [
     study: "VGU",
     work: "CMC",
     job: "Manage all aspects",
+    phoneNumber: "0123456789",
   },
   {
     id: 2,
@@ -38,6 +39,7 @@ export const teamList = [
     study: "VGU",
     work: "CMC",
     job: "Manage task and project",
+    phoneNumber: "0123456789",
   },
   {
     id: 3,
@@ -58,6 +60,7 @@ export const teamList = [
     study: "VGU",
     work: "CMC",
     job: "Program software",
+    phoneNumber: "0123456789",
   },
   {
     id: 4,
@@ -78,6 +81,7 @@ export const teamList = [
     study: "VGU",
     work: "CMC",
     job: "Develop software",
+    phoneNumber: "0123456789",
   },
   {
     id: 5,
@@ -98,6 +102,7 @@ export const teamList = [
     study: "VGU",
     work: "CMC",
     job: "Maintain database, restore data and troubleshhot",
+    phoneNumber: "0123456789",
   },
   {
     id: 6,
@@ -118,6 +123,7 @@ export const teamList = [
     study: "VGU",
     work: "CMC",
     job: "Support technologies",
+    phoneNumber: "0123456789",
   },
   {
     id: 7,
@@ -138,6 +144,7 @@ export const teamList = [
     study: "VGU",
     work: "CMC",
     job: "Support technologies",
+    phoneNumber: "0123456789",
   },
   {
     id: 8,
@@ -158,6 +165,7 @@ export const teamList = [
     study: "VGU",
     work: "CMC",
     job: "Support technologies",
+    phoneNumber: "0123456789",
   },
   {
     id: 9,
@@ -178,6 +186,7 @@ export const teamList = [
     study: "VGU",
     work: "CMC",
     job: "Support technologies",
+    phoneNumber: "0123456789",
   },
   {
     id: 10,
@@ -198,5 +207,6 @@ export const teamList = [
     study: "VGU",
     work: "CMC",
     job: "Support technologies",
+    phoneNumber: "0123456789",
   },
 ];
