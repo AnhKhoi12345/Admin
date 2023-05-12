@@ -1,22 +1,23 @@
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
-import Admin from "./page/Team";
+import Team from "./page/Team";
 import Header from "./components/HeaderSidebar";
-import { teamList } from "./database/TeamDatabase";
 import TeamProfile from "./page/TeamProfile";
+import { useState } from "react";
 
 function App() {
+  const [checked, setChecked] = useState(true);
   return (
     <div className="App">
       {/* <header className="App-header"></header> */}
-      <Header />
+      <Header checked={checked} setChecked={(e) => setChecked(e)} />
       <Routes>
         <Route>
-          <Route path="/" element={<Admin></Admin>}></Route>
+          <Route path="/" element={<Team checked={checked} />}></Route>
           <Route
             path="/team/:id"
             // component={teamList}
-            element={<TeamProfile />}
+            element={<TeamProfile checked={checked} />}
           />
         </Route>
       </Routes>

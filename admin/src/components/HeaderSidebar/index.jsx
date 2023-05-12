@@ -2,22 +2,25 @@ import "../../assets/Header.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import usaIcon from "../../images/usa-icon.png";
 import user from "../../images/user.jpg";
-import {
-  faBars,
-  faSearch,
-  faBell,
-  faTable,
-} from "@fortawesome/free-solid-svg-icons";
+import { faBars, faSearch, faBell } from "@fortawesome/free-solid-svg-icons";
 import { useRef, useState } from "react";
 import { InputSwitch } from "primereact/inputswitch";
 import { Avatar } from "primereact/avatar";
 import { Sidebar } from "primereact/sidebar";
 import { PanelMenu } from "primereact/panelmenu";
 import { useNavigate } from "react-router-dom";
-import { Button } from "primereact/button";
-function Header() {
+import { Menubar } from "primereact/menubar";
+import { notificationList } from "../../database/NotificationDatabase";
+import { Divider } from "primereact/divider";
+
+import Notification from "../Notification";
+function Header({ checked, setChecked }) {
   const navigate = useNavigate();
-  const [checked, setChecked] = useState(true);
+  // const [checked, setChecked] = useState(true);
+  const sidebar = useRef(null);
+  const brand = useRef(null);
+  const notificationContainer = useRef(null);
+  const [notiOpen, setNotiOpen] = useState(false);
   const items = [
     {
       label: "Datatables",
@@ -29,16 +32,6 @@ function Header() {
             navigate("/");
           },
           icon: "pi pi-fw pi-star",
-          // items: [
-          //   {
-          //     label: "Bookmark",
-          //     // icon: "pi pi-fw pi-bookmark",
-          //   },
-          //   {
-          //     label: "Video",
-          //     // icon: "pi pi-fw pi-video",
-          //   },
-          // ],
         },
         {
           label: "User",
@@ -47,103 +40,24 @@ function Header() {
           },
           icon: "pi pi-fw pi-user",
         },
-        // {
-        //   label: "Export",
-        //   icon: "pi pi-fw pi-external-link",
-        // },
       ],
     },
-    // {
-    //   label: "Edit",
-    //   icon: "pi pi-fw pi-pencil",
-    //   items: [
-    //     {
-    //       label: "Left",
-    //       icon: "pi pi-fw pi-align-left",
-    //     },
-    //     {
-    //       label: "Right",
-    //       icon: "pi pi-fw pi-align-right",
-    //     },
-    //     {
-    //       label: "Center",
-    //       icon: "pi pi-fw pi-align-center",
-    //     },
-    //     {
-    //       label: "Justify",
-    //       icon: "pi pi-fw pi-align-justify",
-    //     },
-    //   ],
-    // },
-    // {
-    //   label: "Users",
-    //   icon: "pi pi-fw pi-user",
-    //   items: [
-    //     {
-    //       label: "New",
-    //       icon: "pi pi-fw pi-user-plus",
-    //     },
-    //     {
-    //       label: "Delete",
-    //       icon: "pi pi-fw pi-user-minus",
-    //     },
-    //     {
-    //       label: "Search",
-    //       icon: "pi pi-fw pi-users",
-    //       items: [
-    //         {
-    //           label: "Filter",
-    //           icon: "pi pi-fw pi-filter",
-    //           items: [
-    //             {
-    //               label: "Print",
-    //               icon: "pi pi-fw pi-print",
-    //             },
-    //           ],
-    //         },
-    //         {
-    //           icon: "pi pi-fw pi-bars",
-    //           label: "List",
-    //         },
-    //       ],
-    //     },
-    //   ],
-    // },
-    // {
-    //   label: "Events",
-    //   icon: "pi pi-fw pi-calendar",
-    //   items: [
-    //     {
-    //       label: "Edit",
-    //       icon: "pi pi-fw pi-pencil",
-    //       items: [
-    //         {
-    //           label: "Save",
-    //           icon: "pi pi-fw pi-calendar-plus",
-    //         },
-    //         {
-    //           label: "Delete",
-    //           icon: "pi pi-fw pi-calendar-minus",
-    //         },
-    //       ],
-    //     },
-    //     {
-    //       label: "Archive",
-    //       icon: "pi pi-fw pi-calendar-times",
-    //       items: [
-    //         {
-    //           label: "Remove",
-    //           icon: "pi pi-fw pi-calendar-minus",
-    //         },
-    //       ],
-    //     },
-    //   ],
-    // },
   ];
+  // const notificationItem = [
+  //   {
+  //     icon: "pi pi-fw pi-bell",
+  //     items: [
+  //       {
+  //         label: "New",
+  //         icon: "pi pi-fw pi-plus",
+  //       },
+  //     ],
+  //   },
+  // ];
   const hashtag = "#";
   const [visible, setVisible] = useState(false);
   const navbar = useRef(null);
-  // let [flag, setFlag] = useState();
+
   function navbarScroll() {
     let scrollTop = window.pageYOffset;
     if (scrollTop >= 50) {
@@ -153,10 +67,55 @@ function Header() {
       navbar.current.style = "";
     }
   }
+
+  const SidebarToggle = () => {
+    console.log(checked);
+    if (checked === false) {
+      document.querySelector(".p-menuitem-text").style.display = "block";
+      document.querySelector(".p-panelmenu-icon").style.display = "block";
+      sidebar.current.style.animation = "sidemenu-open 0.5s forwards";
+      navbar.current.classList.remove("navbar-short");
+      navbar.current.classList.add("navbar-long");
+    } else if (checked === true) {
+      document.querySelector(".p-menuitem-text").style.display = "none";
+      document.querySelector(".p-panelmenu-icon").style.display = "none";
+      sidebar.current.style.animation = "sidemenu-close 0.5s forwards";
+      navbar.current.classList.add("navbar-short");
+      navbar.current.classList.remove("navbar-long");
+    }
+  };
+  const SidebarHover = () => {
+    if (checked === false) {
+      document.querySelector(".p-menuitem-text").style.display = "block";
+      document.querySelector(".p-panelmenu-icon").style.display = "block";
+      sidebar.current.style.animation = "sidemenu-open 0.5s forwards";
+      navbar.current.classList.remove("navbar-short");
+      navbar.current.classList.add("navbar-long");
+    }
+  };
+  const SidebarLeave = () => {
+    if (checked === false) {
+      document.querySelector(".p-menuitem-text").style.display = "none";
+      document.querySelector(".p-panelmenu-icon").style.display = "none";
+      sidebar.current.style.animation = "sidemenu-close 0.5s forwards";
+      navbar.current.classList.add("navbar-short");
+      navbar.current.classList.remove("navbar-long");
+    }
+  };
+  const notificationBell = () => {
+    console.log("Notification press");
+    if (notiOpen) {
+      setNotiOpen(false);
+      notificationContainer.current.style.display = "none";
+    } else {
+      setNotiOpen(true);
+      notificationContainer.current.style.display = "block";
+    }
+  };
   window.addEventListener("scroll", navbarScroll);
   const sidebarHeader = (
     <div className="logo-container">
-      <a href={hashtag}>
+      <a href="http://demo.rommar.in.ua/novanoid/novanoid-1/index.html">
         <img
           src="http://demo.rommar.in.ua/novanoid/novanoid-1/img/logo-light.png"
           alt="img"
@@ -191,12 +150,25 @@ function Header() {
               />
             </a>
           </div>
-
+          {/* <Menubar model={notificationItem} /> */}
           <FontAwesomeIcon
             icon={faBell}
             className="Menu-icon nav-item"
             size="lg"
+            onClick={notificationBell}
           />
+          <ul className="notification-container" ref={notificationContainer}>
+            <h2>NOTIFICATION LIST</h2>
+            {notificationList.map((item) => {
+              return (
+                <li key={item.id}>
+                  <h3>{item.title}</h3>
+                  <Notification key={item.id} {...item} />
+                  <Divider type="solid" className="divider" />
+                </li>
+              );
+            })}
+          </ul>
           <div className="navbar-right-profile">
             <Avatar
               image={user}
@@ -207,21 +179,30 @@ function Header() {
             />
           </div>
         </div>
-        {/* <Menubar model={items} className="navbar-right" /> */}
       </div>
-      <div className="sidebar-1200">
+      <div
+        className="sidebar-1200"
+        ref={sidebar}
+        onMouseOver={() => SidebarHover()}
+        onMouseOut={() => SidebarLeave()}
+      >
         <div className="logo-1200">
-          <a href={hashtag}>
+          <a href="http://demo.rommar.in.ua/novanoid/novanoid-1/index.html">
             <img
-              src="http://demo.rommar.in.ua/novanoid/novanoid-1/img/logo-light.png"
+              src="http://demo.rommar.in.ua/novanoid/novanoid-1/img/favicon.png"
               alt="img"
+              ref={brand}
             ></img>
           </a>
+
           <InputSwitch
-            // style={{ }}
             checked={checked}
             className="close-button"
-            onChange={(e) => setChecked(e.value)}
+            onChange={(e) => {
+              setChecked(e.value);
+              SidebarToggle();
+            }}
+            // onClick={setChecked}
           />
         </div>
         <div className="card flex justify-content-center">

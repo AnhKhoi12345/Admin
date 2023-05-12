@@ -18,8 +18,9 @@ import {
   faTwitter,
   faYoutube,
 } from "@fortawesome/free-brands-svg-icons";
-function TeamProfile() {
+function TeamProfile({ checked }) {
   const bg = useRef(null);
+  const profile = useRef(null);
   const param = window.location.href.split("/").reverse()[0];
   let teamMember;
   for (let i = 0; i < teamList.length; i++) {
@@ -30,9 +31,17 @@ function TeamProfile() {
   useEffect(() => {
     bg.current.style.background = `url(${teamMember.bgImage}) no-repeat top`;
     bg.current.style.backgroundSize = "cover";
-  }, []);
+
+    if (checked) {
+      profile.current.classList.remove("profile-long");
+      profile.current.classList.add("profile-short");
+    } else {
+      profile.current.classList.add("profile-long");
+      profile.current.classList.remove("profile-short");
+    }
+  }, [checked]);
   return (
-    <div className="team-profile">
+    <div className="team-profile" ref={profile}>
       <div className="profile-header">
         <div className="profile-header-background" ref={bg}>
           <div className="profile-header-background-text">

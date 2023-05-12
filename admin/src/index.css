@@ -16,3 +16,126 @@ code {
   margin: 0;
   padding: 0;
 }
+.slidemenu-close {
+  animation: sidemenu-close;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
+}
+@keyframes sidemenu-close {
+  from {
+    width: 250px;
+  }
+  to {
+    width: 80px;
+  }
+}
+.slidemenu-open {
+  animation: sidemenu-open;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
+}
+@keyframes sidemenu-open {
+  from {
+    width: 80px;
+  }
+  to {
+    width: 250px;
+  }
+}
+
+@keyframes navbar-long {
+  from {
+    width: calc(100% - 80px);
+  }
+  to {
+    width: calc(100% - 250px);
+  }
+}
+@keyframes navbar-short {
+  from {
+    width: calc(100% - 250px);
+  }
+  to {
+    width: calc(100% - 80px);
+  }
+}
+@keyframes table-long {
+  from {
+    margin-left: 300px;
+    width: 75%;
+    margin-right: 0px;
+  }
+  to {
+    margin-left: 110px;
+    width: 100%;
+    margin-right: 40px;
+  }
+}
+@keyframes table-short {
+  from {
+    margin-left: 110px;
+    width: 100%;
+    margin-right: 40px;
+  }
+  to {
+    margin-left: 300px;
+    width: 75%;
+    margin-right: 0px;
+  }
+}
+@keyframes profile-long {
+  from {
+    margin-left: 250px;
+    width: 75%;
+    /* margin-right: 0px; */
+  }
+  to {
+    margin-left: 90px;
+    width: 100%;
+    /* margin-right: 3px; */
+  }
+}
+@keyframes profile-short {
+  from {
+    margin-left: 90px;
+    width: 100%;
+    /* margin-right: 40px; */
+  }
+  to {
+    margin-left: 250px;
+    width: 75%;
+    /* margin-right: 0px; */
+  }
+}
+@media only screen and (min-width: 1200px) {
+  .navbar-short {
+    animation: navbar-short;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+  }
+  .navbar-long {
+    animation: navbar-long;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+  }
+  .table-short {
+    animation: table-short;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+  }
+  .table-long {
+    animation: table-long;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+  }
+  .profile-short {
+    animation: profile-short;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+  }
+  .profile-long {
+    animation: profile-long;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+  }
+}
