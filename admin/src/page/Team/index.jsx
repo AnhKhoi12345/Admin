@@ -120,7 +120,7 @@ function Team({ checked }) {
     </div>
   );
   const onRowSelect = (e) => {
-    navigate(`/team/${e.data.id}`);
+    navigate(`/datatables/team/${e.data.id}`);
     console.log(e.data.id);
   };
   return (

@@ -15,7 +15,7 @@ function App() {
         <Route>
           <Route path="/" element={<Team checked={checked} />}></Route>
           <Route
-            path="/team/:id"
+            path="/datatables/team/:id"
             // component={teamList}
             element={<TeamProfile checked={checked} />}
           />

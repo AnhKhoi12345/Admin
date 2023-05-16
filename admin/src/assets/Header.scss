@@ -21,6 +21,13 @@
     width: 60px;
     display: flex;
     justify-content: space-between;
+    .p-button {
+      position: relative;
+      top: -15px;
+    }
+    .p-button-icon {
+      color: white;
+    }
   }
   .navbar-right {
     width: 150px;
@@ -102,12 +109,14 @@
   color: white !important;
   // box-shadow: none !important;
 }
-// .p-menuitem-text {
-//   display: none;
-// }
-// .p-panelmenu-icon {
-//   display: none !important;
-// }
+
+.search-header {
+  .p-input-icon-left {
+    .p-inputtext {
+      width: 600px;
+    }
+  }
+}
 .sidebar-1200 {
   position: fixed;
   display: none;
@@ -139,6 +148,7 @@
 .p-inputswitch {
   transform: scale(0.7);
 }
+
 @media only screen and (min-width: 1200px) {
   .navbar {
     width: calc(100% - 250px);

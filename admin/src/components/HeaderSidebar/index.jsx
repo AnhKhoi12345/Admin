@@ -9,18 +9,28 @@ import { Avatar } from "primereact/avatar";
 import { Sidebar } from "primereact/sidebar";
 import { PanelMenu } from "primereact/panelmenu";
 import { useNavigate } from "react-router-dom";
-import { Menubar } from "primereact/menubar";
 import { notificationList } from "../../database/NotificationDatabase";
 import { Divider } from "primereact/divider";
-
+import { Dialog } from "primereact/dialog";
 import Notification from "../Notification";
+import { Button } from "primereact/button";
+import { InputText } from "primereact/inputtext";
+import { DataTable } from "primereact/datatable";
+import { Column } from "primereact/column";
+import { FilterMatchMode } from "primereact/api";
 function Header({ checked, setChecked }) {
   const navigate = useNavigate();
+  const [searchVisible, setSearchVisible] = useState(false);
   // const [checked, setChecked] = useState(true);
   const sidebar = useRef(null);
   const brand = useRef(null);
   const notificationContainer = useRef(null);
   const [notiOpen, setNotiOpen] = useState(false);
+  const [globalFilterValue, setGlobalFilterValue] = useState("");
+  const [filters, setFilters] = useState({
+    global: { value: null, matchMode: FilterMatchMode.CONTAINS },
+    label: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+  });
   const items = [
     {
       label: "Datatables",
@@ -36,24 +46,120 @@ function Header({ checked, setChecked }) {
         {
           label: "User",
           command: () => {
-            navigate("/user");
+            navigate("/datatables/user");
           },
           icon: "pi pi-fw pi-user",
         },
       ],
     },
+    {
+      label: "Dashboard",
+      icon: "pi pi-fw pi-home",
+      items: [
+        {
+          label: "Barchart",
+          command: () => {
+            navigate("/dashboard/barchart");
+          },
+          icon: "pi pi-fw pi-chart-bar",
+        },
+        {
+          label: "Linechart",
+          command: () => {
+            navigate("/dashboard/linechart");
+          },
+          icon: "pi pi-fw pi-chart-line",
+        },
+        {
+          label: "Piechart",
+          command: () => {
+            navigate("/dashboard/piechart");
+          },
+          icon: "pi pi-fw pi-chart-pie",
+        },
+      ],
+    },
+    {
+      label: "Tasks",
+      icon: "pi pi-fw pi-file",
+      command: () => {
+        navigate("/tasks");
+      },
+    },
+    {
+      label: "Chat",
+      icon: "pi pi-fw pi-comment",
+      command: () => {
+        navigate("/chat");
+      },
+    },
+    {
+      label: "Schedule",
+      icon: "pi pi-fw pi-calendar",
+      command: () => {
+        navigate("/schedule");
+      },
+    },
   ];
-  // const notificationItem = [
-  //   {
-  //     icon: "pi pi-fw pi-bell",
-  //     items: [
-  //       {
-  //         label: "New",
-  //         icon: "pi pi-fw pi-plus",
-  //       },
-  //     ],
-  //   },
-  // ];
+  const searchItems = [
+    {
+      id: 1,
+      label: "User",
+      parent: "Datatable",
+      route: "/datatables/user",
+    },
+    {
+      id: 2,
+      label: "Team",
+      parent: "Datatable",
+      route: "",
+    },
+    {
+      id: 3,
+      label: "Barchart",
+      parent: "Dashboard",
+      route: "/dashboard/barchart",
+    },
+    {
+      id: 4,
+      label: "Linechart",
+      parent: "Dashboard",
+      route: "/dashboard/linechart",
+    },
+    {
+      id: 5,
+      label: "Piechart",
+      parent: "Dashboard",
+      route: "/dashboard/piechart",
+    },
+    {
+      id: 6,
+      label: "Chat",
+      parent: "",
+      route: "/chat",
+    },
+    {
+      id: 7,
+      label: "Tasks",
+      parent: "",
+      route: "/tasks",
+    },
+    {
+      id: 8,
+      label: "Schedule",
+      parent: "",
+      route: "/schedule",
+    },
+  ];
+  const onGlobalFilterChange = (e) => {
+    const value = e.target.value;
+    let _filters = { ...filters };
+
+    _filters["global"].value = value;
+
+    setFilters(_filters);
+    setGlobalFilterValue(value);
+  };
   const hashtag = "#";
   const [visible, setVisible] = useState(false);
   const navbar = useRef(null);
@@ -71,14 +177,18 @@ function Header({ checked, setChecked }) {
   const SidebarToggle = () => {
     console.log(checked);
     if (checked === false) {
-      document.querySelector(".p-menuitem-text").style.display = "block";
-      document.querySelector(".p-panelmenu-icon").style.display = "block";
+      let ele = document.querySelectorAll(".p-menuitem-text");
+      for (let i = 0; i < ele.length; i++) {
+        ele[i].style.display = "block";
+      }
       sidebar.current.style.animation = "sidemenu-open 0.5s forwards";
       navbar.current.classList.remove("navbar-short");
       navbar.current.classList.add("navbar-long");
     } else if (checked === true) {
-      document.querySelector(".p-menuitem-text").style.display = "none";
-      document.querySelector(".p-panelmenu-icon").style.display = "none";
+      let ele = document.querySelectorAll(".p-menuitem-text");
+      for (let i = 0; i < ele.length; i++) {
+        ele[i].style.display = "none";
+      }
       sidebar.current.style.animation = "sidemenu-close 0.5s forwards";
       navbar.current.classList.add("navbar-short");
       navbar.current.classList.remove("navbar-long");
@@ -86,8 +196,10 @@ function Header({ checked, setChecked }) {
   };
   const SidebarHover = () => {
     if (checked === false) {
-      document.querySelector(".p-menuitem-text").style.display = "block";
-      document.querySelector(".p-panelmenu-icon").style.display = "block";
+      let ele = document.querySelectorAll(".p-menuitem-text");
+      for (let i = 0; i < ele.length; i++) {
+        ele[i].style.display = "block";
+      }
       sidebar.current.style.animation = "sidemenu-open 0.5s forwards";
       navbar.current.classList.remove("navbar-short");
       navbar.current.classList.add("navbar-long");
@@ -95,8 +207,11 @@ function Header({ checked, setChecked }) {
   };
   const SidebarLeave = () => {
     if (checked === false) {
-      document.querySelector(".p-menuitem-text").style.display = "none";
-      document.querySelector(".p-panelmenu-icon").style.display = "none";
+      let ele = document.querySelectorAll(".p-menuitem-text");
+      for (let i = 0; i < ele.length; i++) {
+        ele[i].style.display = "none";
+      }
+      // document.querySelector(".p-panelmenu-icon").style.display = "none";
       sidebar.current.style.animation = "sidemenu-close 0.5s forwards";
       navbar.current.classList.add("navbar-short");
       navbar.current.classList.remove("navbar-long");
@@ -111,6 +226,42 @@ function Header({ checked, setChecked }) {
       setNotiOpen(true);
       notificationContainer.current.style.display = "block";
     }
+  };
+  const searchHeader = (
+    <div className="search-header flex flex-wrap align-items-center justify-content-between gap-2">
+      <span className="p-input-icon-left">
+        <FontAwesomeIcon
+          icon={faSearch}
+          className="Menu-icon nav-item"
+          size="lg"
+        />
+        <InputText
+          value={globalFilterValue}
+          onChange={onGlobalFilterChange}
+          placeholder="Keyword Search"
+        />
+      </span>
+      {/* </div> */}
+    </div>
+  );
+  const searchBody = (rowData) => {
+    if (rowData.parent.length > 0) {
+      return (
+        <p>
+          <b>{rowData.label}</b> ({rowData.parent})
+        </p>
+      );
+    } else {
+      return (
+        <p>
+          <b>{rowData.label}</b>
+        </p>
+      );
+    }
+  };
+  const onRowSelect = (e) => {
+    navigate(`${e.data.route}`);
+    console.log(e.data.route);
   };
   window.addEventListener("scroll", navbarScroll);
   const sidebarHeader = (
@@ -133,11 +284,35 @@ function Header({ checked, setChecked }) {
             size="lg"
             onClick={() => setVisible(true)}
           />
-          <FontAwesomeIcon
-            icon={faSearch}
-            className="search-icon nav-item"
-            size="lg"
+          <Button
+            icon="pi pi-search"
+            onClick={() => setSearchVisible(true)}
+            rounded
+            text
+            className="search-button"
           />
+          <Dialog
+            draggable={false}
+            header={searchHeader}
+            visible={searchVisible}
+            style={{ width: "50vw" }}
+            onHide={() => setSearchVisible(false)}
+          >
+            <DataTable
+              dataKey="id"
+              filters={filters}
+              value={searchItems}
+              paginator
+              rows={5}
+              globalFilterFields={["label"]}
+              emptyMessage="No item found."
+              selectionMode="single"
+              className=""
+              onRowSelect={onRowSelect}
+            >
+              <Column field="label" body={searchBody} header="Navigation" />
+            </DataTable>
+          </Dialog>
         </div>
 
         <div className="navbar-right">
@@ -202,7 +377,6 @@ function Header({ checked, setChecked }) {
               setChecked(e.value);
               SidebarToggle();
             }}
-            // onClick={setChecked}
           />
         </div>
         <div className="card flex justify-content-center">
