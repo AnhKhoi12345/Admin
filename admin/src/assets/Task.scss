@@ -1,0 +1,11 @@
+.task-container {
+  width: 90%;
+  margin: 100px auto;
+}
+@media only screen and (min-width: 1200px) {
+  .task-container {
+    margin-top: 100px;
+    margin-left: 270px;
+    // width: 70%;
+  }
+}

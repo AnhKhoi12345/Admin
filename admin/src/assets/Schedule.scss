@@ -1,0 +1,14 @@
+.schedule-container {
+  margin: 100px auto;
+  //   width: 90%;
+  // h1 {
+  //   margin-bottom: 30px;
+  // }
+}
+@media only screen and (min-width: 1200px) {
+  .schedule-container {
+    margin-top: 100px;
+    margin-left: 400px;
+    // width: 70%;
+  }
+}
