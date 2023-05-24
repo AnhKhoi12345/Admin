@@ -9,6 +9,7 @@ import Linechart from "./page/Dashboard/Linechart";
 import Piechart from "./page/Dashboard/Piechart";
 import Schedule from "./page/Schedule";
 import Task from "./page/Task";
+import AddTeam from "./page/AddTeam";
 
 function App() {
   const [checked, setChecked] = useState(true);
@@ -30,6 +31,7 @@ function App() {
         <Route path="/dashboard/piechart" element={<Piechart />}></Route>
         <Route path="/schedule" element={<Schedule />}></Route>
         <Route path="/tasks" element={<Task />}></Route>
+        <Route path="/addteam" element={<AddTeam />}></Route>
       </Routes>
     </div>
   );

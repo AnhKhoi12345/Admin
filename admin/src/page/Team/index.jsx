@@ -9,6 +9,7 @@ import { Button } from "primereact/button";
 import { FilterMatchMode } from "primereact/api";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { teamList } from "../../database/TeamDatabase";
+import userApi from "../../api/userApi";
 // import { faBasketball } from '@fortawesome/free-solid-svg-icons';
 import {
   faFacebook,
@@ -17,14 +18,20 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function Team({ checked }) {
   const navigate = useNavigate();
   const [globalFilterValue, setGlobalFilterValue] = useState("");
   const [team, setTeam] = useState(null);
-
   useEffect(() => {
-    setTeam(teamList);
+    const fetchTeamList = async () => {
+      // await setTeam(userApi.getAll())
+      const teamlist = await userApi.getAll();
+      console.log(teamlist.data);
+      setTeam(teamlist.data);
+    };
+    fetchTeamList();
     if (checked) {
       document.querySelector(".p-datatable").classList.remove("table-long");
       document.querySelector(".p-datatable").classList.add("table-short");
@@ -36,7 +43,7 @@ function Team({ checked }) {
   const [filters, setFilters] = useState({
     global: { value: null, matchMode: FilterMatchMode.CONTAINS },
     id: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-    "name.fullName": { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+    fullName: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
     title: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
   });
   const onGlobalFilterChange = (e) => {
@@ -49,12 +56,10 @@ function Team({ checked }) {
     setGlobalFilterValue(value);
   };
   const nameBody = (rowData) => {
-    const name = rowData.name;
-
     return (
       <div className="team-datatable-name">
         <Avatar
-          image={name.img}
+          image={`http://localhost:5000/uploads/${rowData?.image}`}
           size="large"
           shape="circle"
           className="team-datatable-name-img"
@@ -62,30 +67,30 @@ function Team({ checked }) {
         />
         <div className="team-datatable-name-text">
           <p>
-            <b>{name.fullName}</b>
+            <b>{rowData?.fullName}</b>
           </p>
           {/* <br /> */}
-          <p className="team-datatable-name-email">{name.email}</p>
+          <p className="team-datatable-name-email">{rowData?.email}</p>
         </div>
       </div>
     );
   };
   const mediaBody = (rowData) => {
-    const media = rowData.socialMedia;
+    const media = rowData?.socialMedia;
 
     return (
       <div className="team-datatable-icon">
         <div>
           <FontAwesomeIcon icon={faFacebook} className="facebook-i" size="lg" />
-          <p>{media.facebook}</p>
+          <p>{media?.facebook}</p>
         </div>
         <div>
           <FontAwesomeIcon icon={faTwitter} className="facebook-i" size="lg" />
-          <p>{media.twitter}</p>
+          <p>{media?.twitter}</p>
         </div>
         <div>
           <FontAwesomeIcon icon={faYoutube} className="facebook-i" size="lg " />
-          <p>{media.youtube}</p>
+          <p>{media?.youtube}</p>
         </div>
       </div>
     );
@@ -98,11 +103,15 @@ function Team({ checked }) {
       </div>
     );
   };
+  const onClickAdd = () => {
+    navigate("/addteam");
+    // console.log(e.data.id);
+  };
   const header = (
     <div className="flex flex-wrap align-items-center justify-content-between gap-2">
       <span className="text-xl text-900 font-bold">Team Datatable</span>
-      <div class=" flex flex-wrap align-items-center justify-content-between gap-5">
-        <Button label="Add" />
+      <div className=" flex flex-wrap align-items-center justify-content-between gap-5">
+        <Button label="Add" onClick={() => onClickAdd()} />
 
         <span className="p-input-icon-left">
           <FontAwesomeIcon
@@ -120,7 +129,7 @@ function Team({ checked }) {
     </div>
   );
   const onRowSelect = (e) => {
-    navigate(`/datatables/team/${e.data.id}`);
+    navigate(`/datatables/team/${e.data._id}`);
     console.log(e.data.id);
   };
   return (
@@ -132,16 +141,16 @@ function Team({ checked }) {
       removableSort
       value={team}
       paginator
-      rows={3}
-      rowsPerPageOptions={[3, 5, 10]}
-      globalFilterFields={["id", "name.fullName", "title"]}
+      rows={5}
+      rowsPerPageOptions={[5, 10]}
+      globalFilterFields={["_id", "fullName", "title"]}
       emptyMessage="No members found."
       selectionMode="single"
       className="team-datatable"
       onRowSelect={onRowSelect}
     >
       <Column
-        field="id"
+        field="_id"
         header="ID"
         // filter
         sortable

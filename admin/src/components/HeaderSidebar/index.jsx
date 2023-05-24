@@ -266,7 +266,7 @@ function Header({ checked, setChecked }) {
   window.addEventListener("scroll", navbarScroll);
   const sidebarHeader = (
     <div className="logo-container">
-      <a href="http://demo.rommar.in.ua/novanoid/novanoid-1/index.html">
+      <a href="/">
         <img
           src="http://demo.rommar.in.ua/novanoid/novanoid-1/img/logo-light.png"
           alt="img"
@@ -362,7 +362,7 @@ function Header({ checked, setChecked }) {
         onMouseOut={() => SidebarLeave()}
       >
         <div className="logo-1200">
-          <a href="http://demo.rommar.in.ua/novanoid/novanoid-1/index.html">
+          <a href="/">
             <img
               src="http://demo.rommar.in.ua/novanoid/novanoid-1/img/favicon.png"
               alt="img"
