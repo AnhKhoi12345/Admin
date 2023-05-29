@@ -10,6 +10,7 @@ import Piechart from "./page/Dashboard/Piechart";
 import Schedule from "./page/Schedule";
 import Task from "./page/Task";
 import AddTeam from "./page/AddTeam";
+import EditTeam from "./page/EditTeam";
 
 function App() {
   const [checked, setChecked] = useState(true);
@@ -18,14 +19,17 @@ function App() {
       {/* <header className="App-header"></header> */}
       <Header checked={checked} setChecked={(e) => setChecked(e)} />
       <Routes>
-        <Route>
-          <Route path="/" element={<Team checked={checked} />}></Route>
-          <Route
-            path="/datatables/team/:id"
-            // component={teamList}
-            element={<TeamProfile checked={checked} />}
-          />
-        </Route>
+        <Route path="/" element={<Team checked={checked} />}></Route>
+        <Route
+          path="/datatables/team/:id"
+          // component={teamList}
+          element={<TeamProfile checked={checked} />}
+        />
+        <Route
+          path="/datatables/team/edit/:id"
+          // component={teamList}
+          element={<EditTeam checked={checked} />}
+        />
         <Route path="/dashboard/barchart" element={<Barchart />}></Route>
         <Route path="/dashboard/linechart" element={<Linechart />}></Route>
         <Route path="/dashboard/piechart" element={<Piechart />}></Route>

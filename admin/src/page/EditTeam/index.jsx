@@ -1,7 +1,7 @@
 import { InputText } from "primereact/inputtext";
 import { InputTextarea } from "primereact/inputtextarea";
 import "../../assets/AddTeam.scss";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Toast } from "primereact/toast";
 import { FileUpload } from "primereact/fileupload";
 import { ProgressBar } from "primereact/progressbar";
@@ -10,23 +10,13 @@ import { Tooltip } from "primereact/tooltip";
 import { Tag } from "primereact/tag";
 import { useNavigate } from "react-router-dom";
 import { Dialog } from "primereact/dialog";
-function AddTeam() {
+import userApi from "../../api/userApi";
+function EditTeam() {
+  const id = window.location.href.split("/").reverse()[0];
   const [dialogVisible, setDialogVisible] = useState(false);
   const navigate = useNavigate();
   const toast = useRef(null);
   const [totalSize, setTotalSize] = useState(0);
-  const fileUploadRef = useRef(null);
-  // const [fullName, setFullName] = useState("");
-  // const [email, setEmail] = useState("");
-  // const [phone, setPhone] = useState("");
-  // const [title, setTitle] = useState("");
-  // const [study, setStudy] = useState("");
-  // const [work, setWork] = useState("");
-  // const [description, setDescription] = useState("");
-  // const [facebook, setFacebook] = useState("");
-  // const [twitter, setTwitter] = useState("");
-  // const [youtube, setYoutube] = useState("");
-  // const [image, setImage] = useState("");
   const [data, setData] = useState({
     fullName: "",
     email: "",
@@ -40,145 +30,17 @@ function AddTeam() {
     youtube: "",
     image: "",
   });
-  const onTemplateSelect = (e) => {
-    let _totalSize = totalSize;
-    let files = e.files;
+  const [team, setTeam] = useState(null);
+  useEffect(() => {
+    const fetchTeamList = async () => {
+      // await setTeam(userApi.getAll())
+      const teamlist = await userApi.get(id);
+      console.log(teamlist.user);
+      setTeam(teamlist.user);
+    };
+    fetchTeamList();
+  }, []);
 
-    Object.keys(files).forEach((key) => {
-      _totalSize += files[key].size || 0;
-    });
-
-    setTotalSize(_totalSize);
-  };
-
-  const onTemplateUpload = (e) => {
-    let _totalSize = 0;
-
-    e.files.forEach((file) => {
-      _totalSize += file.size || 0;
-    });
-
-    setTotalSize(_totalSize);
-    toast.current.show({
-      severity: "info",
-      summary: "Success",
-      detail: "File Uploaded",
-    });
-    // setImage("hi");
-    // fileUploadRef.upload();
-    // console.log("hi");
-  };
-
-  const onTemplateRemove = (file, callback) => {
-    setTotalSize(totalSize - file.size);
-    callback();
-  };
-
-  const onTemplateClear = () => {
-    setTotalSize(0);
-  };
-
-  const headerTemplate = (options) => {
-    const { className, chooseButton, uploadButton, cancelButton } = options;
-    const value = totalSize / 10000;
-    const formatedValue =
-      fileUploadRef && fileUploadRef.current
-        ? fileUploadRef.current.formatSize(totalSize)
-        : "0 B";
-
-    return (
-      <div
-        className={className}
-        style={{
-          backgroundColor: "transparent",
-          display: "flex",
-          alignItems: "center",
-        }}
-      >
-        {chooseButton}
-        {uploadButton}
-        {cancelButton}
-        <div className="flex align-items-center gap-3 ml-auto">
-          <span>{formatedValue} / 1 MB</span>
-          <ProgressBar
-            value={value}
-            showValue={false}
-            style={{ width: "10rem", height: "12px" }}
-          ></ProgressBar>
-        </div>
-      </div>
-    );
-  };
-
-  const itemTemplate = (file, props) => {
-    return (
-      <div className="flex align-items-center flex-wrap">
-        <div className="flex align-items-center" style={{ width: "40%" }}>
-          <img
-            alt={file.name}
-            role="presentation"
-            src={file.objectURL}
-            width={100}
-          />
-          <span className="flex flex-column text-left ml-3">
-            {file.name}
-            <small>{new Date().toLocaleDateString()}</small>
-          </span>
-        </div>
-        <Tag
-          value={props.formatSize}
-          severity="warning"
-          className="px-3 py-2"
-        />
-        <Button
-          type="button"
-          icon="pi pi-times"
-          className="p-button-outlined p-button-rounded p-button-danger ml-auto"
-          onClick={() => onTemplateRemove(file, props.onRemove)}
-        />
-      </div>
-    );
-  };
-
-  const emptyTemplate = () => {
-    return (
-      <div className="flex align-items-center flex-column">
-        <i
-          className="pi pi-image mt-3 p-5"
-          style={{
-            fontSize: "5em",
-            borderRadius: "50%",
-            backgroundColor: "var(--surface-b)",
-            color: "var(--surface-d)",
-          }}
-        ></i>
-        <span
-          style={{ fontSize: "1.2em", color: "var(--text-color-secondary)" }}
-          className="my-5"
-        >
-          Drag and Drop Image Here
-        </span>
-      </div>
-    );
-  };
-
-  const chooseOptions = {
-    icon: "pi pi-fw pi-images",
-    iconOnly: true,
-    className: "custom-choose-btn p-button-rounded p-button-outlined",
-  };
-  const uploadOptions = {
-    icon: "pi pi-fw pi-cloud-upload",
-    iconOnly: true,
-    className:
-      "custom-upload-btn p-button-success p-button-rounded p-button-outlined",
-  };
-  const cancelOptions = {
-    icon: "pi pi-fw pi-times",
-    iconOnly: true,
-    className:
-      "custom-cancel-btn p-button-danger p-button-rounded p-button-outlined",
-  };
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -216,16 +78,6 @@ function AddTeam() {
       // console.log(formData.values.fullName);
       console.error(error.response.data);
     }
-  };
-  const uploadHandler = (
-    // e
-    // ,
-    { files }
-  ) => {
-    // const [file] = files;
-    setData({ ...data, image: files[0] });
-    console.log(files);
-    // setData({ ...data, image: e.target.files[0] });
   };
   const handleInput = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
@@ -330,32 +182,7 @@ function AddTeam() {
         rows={5}
         cols={30}
       />
-      <Toast ref={toast}></Toast>
 
-      <Tooltip target=".custom-choose-btn" content="Choose" position="bottom" />
-      <Tooltip target=".custom-upload-btn" content="Upload" position="bottom" />
-      <Tooltip target=".custom-cancel-btn" content="Clear" position="bottom" />
-
-      <FileUpload
-        type="file"
-        ref={fileUploadRef}
-        name="image"
-        accept="image/*"
-        // auto={true}
-        maxFileSize={10000000}
-        customUpload={true}
-        uploadHandler={uploadHandler}
-        onUpload={onTemplateUpload}
-        onSelect={onTemplateSelect}
-        onError={onTemplateClear}
-        onClear={onTemplateClear}
-        headerTemplate={headerTemplate}
-        itemTemplate={itemTemplate}
-        emptyTemplate={emptyTemplate}
-        chooseOptions={chooseOptions}
-        uploadOptions={uploadOptions}
-        cancelOptions={cancelOptions}
-      />
       {/* <input type="file" name="file" onChange={uploadHandler} /> */}
       <Button
         label="Submit"
@@ -377,5 +204,4 @@ function AddTeam() {
     </div>
   );
 }
-
-export default AddTeam;
+export default EditTeam;

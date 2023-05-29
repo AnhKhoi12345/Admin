@@ -1,10 +1,8 @@
 import { useEffect, useRef } from "react";
-import { useLocation, useParams } from "react-router-dom";
 import { useState } from "react";
 // import { teamList } from "../../database/TeamDatabase";
 import "../../assets/TeamProfile.scss";
 import { Button } from "primereact/button";
-import { Avatar } from "primereact/avatar";
 import { Image } from "primereact/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -63,10 +61,10 @@ function TeamProfile({ checked }) {
         <div className="profile-header-button-container">
           <div className="profile-header-button">
             <Button label="Follow" className="follow"></Button>
-            <Button
+            {/* <Button
               label="Edit"
               className="edit hover:bg-bluegray-400"
-            ></Button>
+            ></Button> */}
           </div>
         </div>
         <div className="profile-header-picture card flex ">
@@ -116,18 +114,49 @@ function TeamProfile({ checked }) {
       </div>
       <div className="social-media-container">
         <h3>Social Medias</h3>
-        <p className="facebook platform">
-          <FontAwesomeIcon icon={faFacebook} className="facebook-i" size="lg" />
-          <p>{teamMember?.socialMedia.facebook}</p>
-        </p>
-        <p className="twitter platform">
-          <FontAwesomeIcon icon={faTwitter} className="facebook-i" size="lg" />
-          <p>{teamMember?.socialMedia.twitter}</p>
-        </p>
-        <p className="youtube platform">
-          <FontAwesomeIcon icon={faYoutube} className="facebook-i" size="lg" />
-          <p>{teamMember?.socialMedia.youtube}</p>
-        </p>
+        {teamMember?.socialMedia.facebook ? (
+          <p className="facebook platform">
+            <FontAwesomeIcon
+              icon={faFacebook}
+              className="facebook-i"
+              size="lg"
+            />
+            <p>{teamMember?.socialMedia.facebook}</p>
+          </p>
+        ) : (
+          <></>
+        )}
+        {teamMember?.socialMedia.twitter ? (
+          <p className="twitter platform">
+            <FontAwesomeIcon
+              icon={faTwitter}
+              className="facebook-i"
+              size="lg"
+            />
+            <p>{teamMember?.socialMedia.twitter}</p>
+          </p>
+        ) : (
+          <></>
+        )}
+        {teamMember?.socialMedia.youtube ? (
+          <p className="youtube platform">
+            <FontAwesomeIcon
+              icon={faYoutube}
+              className="facebook-i"
+              size="lg"
+            />
+            <p>{teamMember?.socialMedia.youtube}</p>
+          </p>
+        ) : (
+          <></>
+        )}
+        {teamMember?.socialMedia.facebook ||
+        teamMember?.socialMedia.twitter ||
+        teamMember?.socialMedia.youtube ? (
+          <></>
+        ) : (
+          <div>N/A</div>
+        )}
       </div>
     </div>
   );

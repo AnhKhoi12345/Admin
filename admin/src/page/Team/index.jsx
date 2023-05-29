@@ -4,11 +4,9 @@ import { Column } from "primereact/column";
 import { Avatar } from "primereact/avatar";
 import { InputText } from "primereact/inputtext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Menubar } from "primereact/menubar";
 import { Button } from "primereact/button";
 import { FilterMatchMode } from "primereact/api";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
-import { teamList } from "../../database/TeamDatabase";
 import userApi from "../../api/userApi";
 // import { faBasketball } from '@fortawesome/free-solid-svg-icons';
 import {
@@ -18,7 +16,6 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 
 function Team({ checked }) {
   const navigate = useNavigate();
@@ -80,25 +77,75 @@ function Team({ checked }) {
 
     return (
       <div className="team-datatable-icon">
-        <div>
+        {media?.facebook ? (
+          <div>
+            <FontAwesomeIcon
+              icon={faFacebook}
+              className="facebook-i"
+              size="lg"
+            />
+            <p>{media?.facebook}</p>
+          </div>
+        ) : (
+          <></>
+        )}
+        {media?.twitter ? (
+          <div>
+            <FontAwesomeIcon
+              icon={faTwitter}
+              className="facebook-i"
+              size="lg"
+            />
+            <p>{media?.twitter}</p>
+          </div>
+        ) : (
+          <></>
+        )}
+        {media?.youtube ? (
+          <div>
+            <FontAwesomeIcon
+              icon={faYoutube}
+              className="facebook-i"
+              size="lg "
+            />
+            <p>{media?.youtube}</p>
+          </div>
+        ) : (
+          <></>
+        )}
+        {media?.youtube || media?.twitter || media?.facebook ? (
+          <></>
+        ) : (
+          <div>N/A</div>
+        )}
+        {/* <div>
           <FontAwesomeIcon icon={faFacebook} className="facebook-i" size="lg" />
           <p>{media?.facebook}</p>
-        </div>
-        <div>
+        </div> */}
+        {/* <div>
           <FontAwesomeIcon icon={faTwitter} className="facebook-i" size="lg" />
           <p>{media?.twitter}</p>
         </div>
         <div>
           <FontAwesomeIcon icon={faYoutube} className="facebook-i" size="lg " />
           <p>{media?.youtube}</p>
-        </div>
+        </div> */}
       </div>
     );
+  };
+  const onClickEdit = (e) => {
+    navigate(`/datatables/team/edit/${e.data._id}`);
+    console.log(e.data.id);
   };
   const actionBody = (rowData) => {
     return (
       <div className="team-datatable-action">
-        <Button type="button" label="Edit" raised></Button>
+        <Button
+          type="button"
+          label="Edit"
+          raised
+          onClick={onClickEdit}
+        ></Button>
         <Button label="Delete" severity="danger" raised />
       </div>
     );
@@ -135,14 +182,14 @@ function Team({ checked }) {
   return (
     <DataTable
       header={header}
-      dataKey="id"
+      dataKey="_id"
       filters={filters}
       // filterDisplay="row"
       removableSort
       value={team}
       paginator
       rows={5}
-      rowsPerPageOptions={[5, 10]}
+      rowsPerPageOptions={[5, 10, 20]}
       globalFilterFields={["_id", "fullName", "title"]}
       emptyMessage="No members found."
       selectionMode="single"
@@ -161,7 +208,7 @@ function Team({ checked }) {
         body={nameBody}
         header="Name"
         sortable
-        sortField="name.fullName"
+        sortField="fullName"
         className="name"
       />
       <Column field="title" header="Title" className="title" sortable />
