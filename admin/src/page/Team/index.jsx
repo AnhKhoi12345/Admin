@@ -8,7 +8,6 @@ import { Button } from "primereact/button";
 import { FilterMatchMode } from "primereact/api";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import userApi from "../../api/userApi";
-// import { faBasketball } from '@fortawesome/free-solid-svg-icons';
 import {
   faFacebook,
   faTwitter,
@@ -23,7 +22,6 @@ function Team({ checked }) {
   const [team, setTeam] = useState(null);
   useEffect(() => {
     const fetchTeamList = async () => {
-      // await setTeam(userApi.getAll())
       const teamlist = await userApi.getAll();
       console.log(teamlist.data);
       setTeam(teamlist.data);
@@ -66,7 +64,6 @@ function Team({ checked }) {
           <p>
             <b>{rowData?.fullName}</b>
           </p>
-          {/* <br /> */}
           <p className="team-datatable-name-email">{rowData?.email}</p>
         </div>
       </div>
@@ -118,24 +115,12 @@ function Team({ checked }) {
         ) : (
           <div>N/A</div>
         )}
-        {/* <div>
-          <FontAwesomeIcon icon={faFacebook} className="facebook-i" size="lg" />
-          <p>{media?.facebook}</p>
-        </div> */}
-        {/* <div>
-          <FontAwesomeIcon icon={faTwitter} className="facebook-i" size="lg" />
-          <p>{media?.twitter}</p>
-        </div>
-        <div>
-          <FontAwesomeIcon icon={faYoutube} className="facebook-i" size="lg " />
-          <p>{media?.youtube}</p>
-        </div> */}
       </div>
     );
   };
   const onClickEdit = (e) => {
-    navigate(`/datatables/team/edit/${e.data._id}`);
-    console.log(e.data.id);
+    navigate(`/datatables/team/${e._id}/edit`);
+    console.log(e);
   };
   const actionBody = (rowData) => {
     return (
@@ -144,7 +129,7 @@ function Team({ checked }) {
           type="button"
           label="Edit"
           raised
-          onClick={onClickEdit}
+          onClick={() => onClickEdit(rowData)}
         ></Button>
         <Button label="Delete" severity="danger" raised />
       </div>
@@ -152,7 +137,6 @@ function Team({ checked }) {
   };
   const onClickAdd = () => {
     navigate("/addteam");
-    // console.log(e.data.id);
   };
   const header = (
     <div className="flex flex-wrap align-items-center justify-content-between gap-2">
@@ -184,7 +168,6 @@ function Team({ checked }) {
       header={header}
       dataKey="_id"
       filters={filters}
-      // filterDisplay="row"
       removableSort
       value={team}
       paginator
@@ -217,7 +200,7 @@ function Team({ checked }) {
         field="action"
         header="Action"
         className="action"
-        body={actionBody}
+        body={(data) => actionBody(data)}
       />
     </DataTable>
   );

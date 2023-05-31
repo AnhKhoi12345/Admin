@@ -113,7 +113,7 @@
 .search-header {
   .p-input-icon-left {
     .p-inputtext {
-      width: 600px;
+      width: 280px;
     }
   }
 }
@@ -161,6 +161,13 @@
   }
   .sidebar-1200 {
     display: inline-block;
+  }
+  .search-header {
+    .p-input-icon-left {
+      .p-inputtext {
+        width: 600px;
+      }
+    }
   }
 }
 // @media only screen and (min-width: 1250px) {

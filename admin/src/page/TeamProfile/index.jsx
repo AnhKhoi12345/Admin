@@ -17,8 +17,10 @@ import {
   faYoutube,
 } from "@fortawesome/free-brands-svg-icons";
 import userApi from "../../api/userApi";
+import { useNavigate } from "react-router-dom";
 function TeamProfile({ checked }) {
   const [teamMember, setTeam] = useState(null);
+  const navigate = useNavigate();
   useEffect(() => {
     const fetchTeamList = async () => {
       // await setTeam(userApi.getAll())
@@ -49,6 +51,12 @@ function TeamProfile({ checked }) {
   //     teamMember = team[i];
   //   }
   // }
+  const onClickEdit = () => {
+    navigate(
+      `/datatables/team/${window.location.href.split("/").reverse()[0]}/edit`
+    );
+    // console.log(e.data.id);
+  };
   return (
     <div className="team-profile" ref={profile}>
       <div className="profile-header">
@@ -61,10 +69,11 @@ function TeamProfile({ checked }) {
         <div className="profile-header-button-container">
           <div className="profile-header-button">
             <Button label="Follow" className="follow"></Button>
-            {/* <Button
+            <Button
               label="Edit"
               className="edit hover:bg-bluegray-400"
-            ></Button> */}
+              onClick={onClickEdit}
+            ></Button>
           </div>
         </div>
         <div className="profile-header-picture card flex ">

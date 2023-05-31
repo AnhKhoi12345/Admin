@@ -1,7 +1,7 @@
 import { InputText } from "primereact/inputtext";
 import { InputTextarea } from "primereact/inputtextarea";
 import "../../assets/AddTeam.scss";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Toast } from "primereact/toast";
 import { FileUpload } from "primereact/fileupload";
 import { ProgressBar } from "primereact/progressbar";
@@ -10,23 +10,12 @@ import { Tooltip } from "primereact/tooltip";
 import { Tag } from "primereact/tag";
 import { useNavigate } from "react-router-dom";
 import { Dialog } from "primereact/dialog";
-function AddTeam() {
+function AddTeam({ checked }) {
   const [dialogVisible, setDialogVisible] = useState(false);
   const navigate = useNavigate();
   const toast = useRef(null);
   const [totalSize, setTotalSize] = useState(0);
   const fileUploadRef = useRef(null);
-  // const [fullName, setFullName] = useState("");
-  // const [email, setEmail] = useState("");
-  // const [phone, setPhone] = useState("");
-  // const [title, setTitle] = useState("");
-  // const [study, setStudy] = useState("");
-  // const [work, setWork] = useState("");
-  // const [description, setDescription] = useState("");
-  // const [facebook, setFacebook] = useState("");
-  // const [twitter, setTwitter] = useState("");
-  // const [youtube, setYoutube] = useState("");
-  // const [image, setImage] = useState("");
   const [data, setData] = useState({
     fullName: "",
     email: "",
@@ -64,9 +53,6 @@ function AddTeam() {
       summary: "Success",
       detail: "File Uploaded",
     });
-    // setImage("hi");
-    // fileUploadRef.upload();
-    // console.log("hi");
   };
 
   const onTemplateRemove = (file, callback) => {
@@ -183,9 +169,6 @@ function AddTeam() {
     e.preventDefault();
 
     const formData = new FormData();
-    // for (const [key, value] of Object.entries(data)) {
-    //   formData.append(key, value);
-    // }
     formData.append("fullName", data.fullName);
     formData.append("email", data.email);
     formData.append("phone", data.phone);
@@ -213,7 +196,6 @@ function AddTeam() {
           setTimeout(navigate("/"), 8000);
         });
     } catch (error) {
-      // console.log(formData.values.fullName);
       console.error(error.response.data);
     }
   };
@@ -230,18 +212,25 @@ function AddTeam() {
   const handleInput = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
-
+  const container = useRef(null);
+  useEffect(() => {
+    if (checked) {
+      container.current.classList.remove("profile-long");
+      container.current.classList.add("profile-short");
+    } else {
+      container.current.classList.add("profile-long");
+      container.current.classList.remove("profile-short");
+    }
+  }, [checked]);
   return (
-    <div className="create-profile-container">
+    <div className="create-profile-container" ref={container}>
       <h1>Create new team member</h1>
       <h2>Full name</h2>
       <InputText
         name="fullName"
-        // keyfilter="alphanum"
         keyfilter={/[a-z A-Z]/}
         className="add-team-input"
         onChange={handleInput}
-        // onChange={(e) => setFullName(e.target.value)}
         value={data.fullName}
         required
       />
@@ -250,7 +239,6 @@ function AddTeam() {
         name="email"
         keyfilter="email"
         className="add-team-input"
-        // onChange={(e) => setEmail(e.target.value)}
         onChange={handleInput}
         value={data.email}
         required
@@ -260,7 +248,6 @@ function AddTeam() {
         name="phone"
         keyfilter="pnum"
         className="add-team-input"
-        // onChange={(e) => setPhone(e.target.value)}
         onChange={handleInput}
         value={data.phone}
         required
@@ -270,7 +257,6 @@ function AddTeam() {
         name="title"
         keyfilter={/[a-z A-Z]/}
         className="add-team-input"
-        // onChange={(e) => setTitle(e.target.value)}
         onChange={handleInput}
         value={data.title}
         required
@@ -280,7 +266,6 @@ function AddTeam() {
         name="study"
         keyfilter={/[a-z A-Z]/}
         className="add-team-input"
-        // onChange={(e) => setStudy(e.target.value)}
         onChange={handleInput}
         value={data.study}
         required
@@ -290,7 +275,6 @@ function AddTeam() {
         name="work"
         keyfilter="alpha"
         className="add-team-input"
-        // onChange={(e) => setWork(e.target.value)}
         onChange={handleInput}
         value={data.work}
       />
@@ -299,7 +283,6 @@ function AddTeam() {
       <InputText
         name="youtube"
         className="add-team-input"
-        // onChange={(e) => setYoutube(e.target.value)}
         onChange={handleInput}
         value={data.youtube}
       />
@@ -307,7 +290,6 @@ function AddTeam() {
       <InputText
         name="facebook"
         className="add-team-input"
-        // onChange={(e) => setFacebook(e.target.value)}
         onChange={handleInput}
         value={data.facebook}
       />
@@ -315,7 +297,6 @@ function AddTeam() {
       <InputText
         name="twitter"
         className="add-team-input"
-        // onChange={(e) => setTwitter(e.target.value)}
         onChange={handleInput}
         value={data.twitter}
         required
@@ -325,7 +306,6 @@ function AddTeam() {
         name="description"
         className="add-team-input"
         value={data.description}
-        // onChange={(e) => setDescription(e.target.value)}
         onChange={handleInput}
         rows={5}
         cols={30}
@@ -341,7 +321,6 @@ function AddTeam() {
         ref={fileUploadRef}
         name="image"
         accept="image/*"
-        // auto={true}
         maxFileSize={10000000}
         customUpload={true}
         uploadHandler={uploadHandler}
@@ -356,15 +335,11 @@ function AddTeam() {
         uploadOptions={uploadOptions}
         cancelOptions={cancelOptions}
       />
-      {/* <input type="file" name="file" onChange={uploadHandler} /> */}
       <Button
         label="Submit"
         type="button"
-        //   icon="pi pi-times"
         className="p-button-rounded  ml-auto submit-button"
         onClick={handleSubmit}
-        // onClick={testFunc}
-        //   onClick={() => onTemplateRemove(file, props.onRemove)}
       />
       <Dialog
         header="User created successful!"

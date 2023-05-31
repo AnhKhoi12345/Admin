@@ -236,6 +236,7 @@ function Header({ checked, setChecked }) {
           size="lg"
         />
         <InputText
+          className="seach-category"
           value={globalFilterValue}
           onChange={onGlobalFilterChange}
           placeholder="Keyword Search"

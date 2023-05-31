@@ -26,7 +26,7 @@ function App() {
           element={<TeamProfile checked={checked} />}
         />
         <Route
-          path="/datatables/team/edit/:id"
+          path="/datatables/team/:id/edit"
           // component={teamList}
           element={<EditTeam checked={checked} />}
         />
@@ -35,7 +35,7 @@ function App() {
         <Route path="/dashboard/piechart" element={<Piechart />}></Route>
         <Route path="/schedule" element={<Schedule />}></Route>
         <Route path="/tasks" element={<Task />}></Route>
-        <Route path="/addteam" element={<AddTeam />}></Route>
+        <Route path="/addteam" element={<AddTeam checked={checked} />}></Route>
       </Routes>
     </div>
   );
